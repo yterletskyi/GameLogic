@@ -20,8 +20,4 @@ public class Game {
         scoreManager.setBet(bet);
         return scoreManager.wonScores();
     }
-
-    // DOUBLE_BAR CHERRY CHERRY
-    // SINGLE_BAR DIAMOND DIAMOND
-
 }

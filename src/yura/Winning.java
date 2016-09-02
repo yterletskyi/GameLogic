@@ -37,7 +37,6 @@ public class Winning {
     }
 
     public boolean areAllItemsEqual() {
-        // TODO: change for class' equals
         ItemsEnum itemType = mWinningItems.get(0).getType();
         for (int i = 1; i < mWinningItems.size(); i++) {
             if (!mWinningItems.get(i).getType().equals(itemType)) {
@@ -116,11 +115,13 @@ public class Winning {
         return sevensCount;
     }
 
-    // TODO: be careful here
     public int barsCount() {
         int barsCount = 0;
         for (WinningItem item : mWinningItems) {
-            if (item.getType().equals(ItemsEnum.SINGLE_BAR) || item.getType().equals(ItemsEnum.DOUBLE_BAR) || item.getType().equals(ItemsEnum.TRIPLE_BAR)) {
+            if (item.getType().equals(ItemsEnum.SINGLE_BAR)
+                    || item.getType().equals(ItemsEnum.DOUBLE_BAR)
+                    || item.getType().equals(ItemsEnum.TRIPLE_BAR)
+                    ) {
                 barsCount++;
             }
         }
