@@ -1,6 +1,5 @@
 package yura;
 
-import yura.Items.Bar;
 import yura.Items.ItemsEnum;
 import yura.Items.WinningItem;
 
@@ -121,7 +120,7 @@ public class Winning {
     public int barsCount() {
         int barsCount = 0;
         for (WinningItem item : mWinningItems) {
-            if (item instanceof Bar) {
+            if (item.getType().equals(ItemsEnum.SINGLE_BAR) || item.getType().equals(ItemsEnum.DOUBLE_BAR) || item.getType().equals(ItemsEnum.TRIPLE_BAR)) {
                 barsCount++;
             }
         }
