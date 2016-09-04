@@ -33,7 +33,7 @@ public class Winning {
 
     private WinningItem getWheelValue(int index) {
         ItemsEnum selectedItemType = ItemsEnum.values()[index];
-        return ItemFactory.createWinningItem(selectedItemType);
+        return new WinningItem(selectedItemType);
     }
 
     public boolean areAllItemsEqual() {
@@ -46,16 +46,6 @@ public class Winning {
         return true;
     }
 
-    public int diamondsCount() {
-        int diamondsCount = 0;
-        for (WinningItem item : mWinningItems) {
-            if (item.getType().equals(ItemsEnum.DIAMOND)) {
-                diamondsCount++;
-            }
-        }
-        return diamondsCount;
-    }
-
     public boolean hasTwoEqualItems() {
         ItemsEnum itemOne = mWinningItems.get(0).getType();
         ItemsEnum itemTwo = mWinningItems.get(1).getType();
@@ -65,54 +55,39 @@ public class Winning {
 
     }
 
-    public int doubleBarsCount() {
-        int doubleBarsCount = 0;
+    private int countOf(ItemsEnum itemType) {
+        int count = 0;
         for (WinningItem item : mWinningItems) {
-            if (item.getType().equals(ItemsEnum.DOUBLE_BAR)) {
-                doubleBarsCount++;
+            if (item.getType().equals(itemType)) {
+                count++;
             }
         }
-        return doubleBarsCount;
+        return count;
+    }
+
+    public int diamondsCount() {
+        return countOf(ItemsEnum.DIAMOND);
+    }
+
+    public int doubleBarsCount() {
+        return countOf(ItemsEnum.DOUBLE_BAR);
     }
 
     public int tripleBarsCount() {
-        int tripleBarsCount = 0;
-        for (WinningItem item : mWinningItems) {
-            if (item.getType().equals(ItemsEnum.TRIPLE_BAR)) {
-                tripleBarsCount++;
-            }
-        }
-        return tripleBarsCount;
+        return countOf(ItemsEnum.TRIPLE_BAR);
     }
 
     public int singleBarsCount() {
-        int singleBarsCount = 0;
-        for (WinningItem item : mWinningItems) {
-            if (item.getType().equals(ItemsEnum.SINGLE_BAR)) {
-                singleBarsCount++;
-            }
-        }
-        return singleBarsCount;
+        return countOf(ItemsEnum.SINGLE_BAR);
     }
 
+
     public int cherriesCount() {
-        int cherriesCount = 0;
-        for (WinningItem item : mWinningItems) {
-            if (item.getType().equals(ItemsEnum.CHERRY)) {
-                cherriesCount++;
-            }
-        }
-        return cherriesCount;
+        return countOf(ItemsEnum.CHERRY);
     }
 
     public int sevensCount() {
-        int sevensCount = 0;
-        for (WinningItem item : mWinningItems) {
-            if (item.getType().equals(ItemsEnum.SEVEN)) {
-                sevensCount++;
-            }
-        }
-        return sevensCount;
+        return countOf(ItemsEnum.SEVEN);
     }
 
     public int barsCount() {
