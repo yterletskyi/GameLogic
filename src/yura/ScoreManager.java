@@ -20,6 +20,9 @@ public class ScoreManager {
     }
 
     public int wonScores() {
+        if (mBet == 0) {
+            throw new RuntimeException("Bet is 0");
+        }
         if (mWinning.areAllItemsEqual()) {
             calcScoresIfAllTypesEqual(mWinning.getWinningItems().get(0).getType());
         } else if (isWinningFromList()) {

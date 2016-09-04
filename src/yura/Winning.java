@@ -4,7 +4,7 @@ import yura.Items.ItemsEnum;
 import yura.Items.WinningItem;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
 
 /**
  * Created by yterletskyi on 30.08.16.
@@ -13,27 +13,19 @@ public class Winning {
 
     private ArrayList<WinningItem> mWinningItems;
 
-    public Winning(int slotItemsCount) {
+    public Winning() {
         mWinningItems = new ArrayList<>(Game.SLOTS_COUNT);
-        Random random = new Random();
-        initWinnings(
-                getWheelValue(random.nextInt(slotItemsCount)),
-                getWheelValue(random.nextInt(slotItemsCount)),
-                getWheelValue(random.nextInt(slotItemsCount))
-        );
     }
 
-    private void initWinnings(WinningItem... items) {
-        for (WinningItem item : items) {
-            mWinningItems.add(item);
-            System.out.printf("%s ", item.getType().toString());
+    public void initWinnings(WinningItem... items) {
+        Collections.addAll(mWinningItems, items);
+    }
+
+    public void printItems() {
+        for (WinningItem item : mWinningItems) {
+            System.out.printf("%s ", item.getType());
         }
         System.out.println();
-    }
-
-    private WinningItem getWheelValue(int index) {
-        ItemsEnum selectedItemType = ItemsEnum.values()[index];
-        return new WinningItem(selectedItemType);
     }
 
     public boolean areAllItemsEqual() {
@@ -50,9 +42,7 @@ public class Winning {
         ItemsEnum itemOne = mWinningItems.get(0).getType();
         ItemsEnum itemTwo = mWinningItems.get(1).getType();
         ItemsEnum itemThree = mWinningItems.get(2).getType();
-
         return itemOne.equals(itemTwo) || itemTwo.equals(itemThree) || itemOne.equals(itemThree);
-
     }
 
     private int countOf(ItemsEnum itemType) {
@@ -80,7 +70,6 @@ public class Winning {
     public int singleBarsCount() {
         return countOf(ItemsEnum.SINGLE_BAR);
     }
-
 
     public int cherriesCount() {
         return countOf(ItemsEnum.CHERRY);
