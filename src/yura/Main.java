@@ -10,13 +10,11 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-        Game game = new Game();
 
         int bet = 1;
 
         double rtp = 0.95;
         double winPercent = 30;
-
 
         long totalBet = 0;
         long totalWin = 0;
@@ -25,12 +23,12 @@ public class Main {
         int win = 0;
 
         double[] winnings = {800, 160, 80, 50, 40, 25, 20, 10, 5, 2, 0};
-        double[] probabilities = calcProbabilities(winPercent / 100, 0.5);
+        double[] probabilities = calcProbabilities(winPercent / 100, 0.76171);
 
 
         int multiplier = multiplier(probabilities, 100);
 
-        System.out.println(sumProduct(probabilities, winnings));
+        System.out.println("checking rtp: " + sumProduct(probabilities, winnings));
 
         int size = probabilities.length;
         for (int i = 0; i < size; i++) {
@@ -51,26 +49,26 @@ public class Main {
             prevValue += iProb;
         }
 
-//        double total = sum(probabilities);
+        double total = sum(probabilities);
 
-//        for (int i = 0; i < 1_000_000; i++) {
-//
-//            double rand = winRandom.randIntIncluding((int) total);
-//
-//            for (Map.Entry<Range<Double>, Integer> entry : winRangeMap.entrySet()) {
-//                Range<Double> range = entry.getKey();
-//                Integer winInteger = entry.getValue();
-//
-//                if (range.isInRange(rand)) {
-//                    win = winInteger;
-//                }
-//            }
-//            totalWin += win;
-//            totalBet += bet;
-//        }
-//
-//        double rtpCheck = (double) totalWin / (double) totalBet;
-//        System.out.println(rtpCheck);
+        for (int i = 0; i < 1_000_000; i++) {
+
+            double rand = winRandom.randIntIncluding((int) total);
+
+            for (Map.Entry<Range<Double>, Integer> entry : winRangeMap.entrySet()) {
+                Range<Double> range = entry.getKey();
+                Integer winInteger = entry.getValue();
+
+                if (range.isInRange(rand)) {
+                    win = winInteger;
+                }
+            }
+            totalWin += win;
+            totalBet += bet;
+        }
+
+        double rtpCheck = (double) totalWin / (double) totalBet;
+        System.out.println("rtp is: " + rtpCheck);
 
 
     }
@@ -82,25 +80,6 @@ public class Main {
         }
         return sum;
     }
-
-//    private static int spin(int winPercent, double rtp) {
-//
-//    }
-
-//    private static int multiplier(double[] probabilities, int precision) {
-//        precision /= 10;
-//        int multiplier = 1;
-//        for (double prob : probabilities) {
-//            while (prob <= precision) {
-//                prob *= multiplier;
-//                if (prob < precision) {
-//                    multiplier *= 10;
-//                }
-//            }
-//        }
-//        // todo check if I didn't change probabilities here
-//        return multiplier;
-//    }
 
     private static int multiplier(double[] probabilities, int precision) {
         int multiplier = 1;
