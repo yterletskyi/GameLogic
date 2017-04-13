@@ -24,9 +24,14 @@ public class Main {
         WinRandom winRandom = new WinRandom();
         int win = 0;
 
-        int[] winnings = {800, 160, 80, 50, 40, 25, 20, 10, 5, 2, 0};
+        double[] winnings = {800, 160, 80, 50, 40, 25, 20, 10, 5, 2, 0};
         double[] probabilities = calcProbabilities(winPercent / 100, 0.5);
+
+
         int multiplier = multiplier(probabilities, 100);
+
+        System.out.println(sumProduct(probabilities, winnings));
+
         int size = probabilities.length;
         for (int i = 0; i < size; i++) {
             double prob = probabilities[i];
@@ -40,32 +45,32 @@ public class Main {
         Map<Range<Double>, Integer> winRangeMap = new HashMap<>();
         double prevValue = 0;
         for (int i = 0; i < winnings.length; i++) {
-            int iWin = winnings[i];
+            double iWin = winnings[i];
             double iProb = probabilities[i];
-            winRangeMap.put(new Range<>(prevValue, iProb + iProb), iWin);
+            winRangeMap.put(new Range<>(prevValue, iProb + iProb), (int) iWin);
             prevValue += iProb;
         }
 
-        double total = sum(probabilities);
+//        double total = sum(probabilities);
 
-        for (int i = 0; i < 1_000_000; i++) {
-
-            double rand = winRandom.randIntIncluding((int) total);
-
-            for (Map.Entry<Range<Double>, Integer> entry : winRangeMap.entrySet()) {
-                Range<Double> range = entry.getKey();
-                Integer winInteger = entry.getValue();
-
-                if (range.isInRange(rand)) {
-                    win = winInteger;
-                }
-            }
-            totalWin += win;
-            totalBet += bet;
-        }
-
-        double rtpCheck = (double) totalWin / (double) totalBet;
-        System.out.println(rtpCheck);
+//        for (int i = 0; i < 1_000_000; i++) {
+//
+//            double rand = winRandom.randIntIncluding((int) total);
+//
+//            for (Map.Entry<Range<Double>, Integer> entry : winRangeMap.entrySet()) {
+//                Range<Double> range = entry.getKey();
+//                Integer winInteger = entry.getValue();
+//
+//                if (range.isInRange(rand)) {
+//                    win = winInteger;
+//                }
+//            }
+//            totalWin += win;
+//            totalBet += bet;
+//        }
+//
+//        double rtpCheck = (double) totalWin / (double) totalBet;
+//        System.out.println(rtpCheck);
 
 
     }
@@ -109,6 +114,17 @@ public class Main {
         }
 
         return multiplier;
+    }
+
+    private static double sumProduct(double[] array1, double[] array2) {
+        int size = array1.length;
+        double sum = 0;
+        for (int i = 0; i < size; i++) {
+            double a1 = array1[i];
+            double a2 = array2[i];
+            sum += a1 * a2;
+        }
+        return sum;
     }
 
     private static double[] calcProbabilities(double max, final double k) {
