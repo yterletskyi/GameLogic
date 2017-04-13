@@ -1,4 +1,4 @@
-package yura;
+package yura.rtp;
 
 import java.util.Random;
 
@@ -12,6 +12,10 @@ public class WinRandom {
     public boolean isWinCombination(int winPercent) {
         int randomInt = new Random().nextInt(HUNDRED_PERCENT + 1) - 1;
         return randomInt < winPercent;
+    }
+
+    public int randIntIncluding(int end) {
+        return new Random().nextInt(end + 1) - 1;
     }
 
 }
